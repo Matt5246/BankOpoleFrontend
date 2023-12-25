@@ -3,8 +3,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Breadcrumb, Layout } from 'antd';
 import { Content, Footer } from 'antd/es/layout/layout';
-import NavMenu from '../components/NavMenu';
+import NavMenu from '../../components/NavMenu';
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import StoreProvider from '../StoreProvider'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -59,7 +61,7 @@ export default function RootLayout({
                         height: '1300px'
                     }}
                 >
-                    {children}
+                    <StoreProvider>{children}</StoreProvider>
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Matt Patt Design ©2023 Created by Matt5246</Footer>
