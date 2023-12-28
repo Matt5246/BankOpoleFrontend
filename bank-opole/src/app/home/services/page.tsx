@@ -1,9 +1,6 @@
 'use client'
-import { useRef } from 'react'
-import { increment, decrement, CounterState } from '../../../lib/features/counter/counterSlice'
+import { increment, decrement } from '../../../lib/features/counter/counterSlice'
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks'
-import { Button } from 'antd';
-
 
 export default function Home() {
     const dispatch = useAppDispatch()
@@ -13,8 +10,8 @@ export default function Home() {
     return (
         <header>
             <h1 className="text-4xl font-bold">Bank App {count}</h1>
-            <Button className="m-5" onClick={() => dispatch(increment())}>Increment</Button>
-            <Button onClick={() => dispatch(decrement())}>Decrement</Button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-5 my-2" onClick={() => dispatch(increment())}>Increment</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => dispatch(decrement())}>Decrement</button>
         </header>
     );
 };

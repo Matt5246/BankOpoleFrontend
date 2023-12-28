@@ -1,51 +1,101 @@
 'use client'
+import React from "react"
 import CreditCard from "@/components/CreditCard";
-// const CardNumbers = [
-//     "",
-//     "4242424242424242",
-//     "5200828282828210",
-//     "6011000990139424",
-//     "3566002020360505",
-//     "36227206271667",
-//     "371449635398431",
-//     "5105105105105100",
-//     "2223003122003222",
-// ];
-// const CardNames = ["", "John Doe", 'kayz', 'matthew'];
-// const CardFocusStates: Focused[] = ["", "number", "name", "cvc", "expiry"];
-// const CardExpiryOptions = ["", "12/2025", "12/25", "12/5", "12/05", "12/2056"];
-// const CardCvcOptions = ["", "123", "1234"];
-
+import { Focused } from "react-credit-cards-2";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
+import { useAppDispatch, useAppSelector } from '@/lib/hooks'
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableFooter,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 export default function Home() {
-    // const [number, setNumber] = useState<string | number>("");
-    // const [name, setName] = useState<string>("");
-    // const [focused, setFocused] = useState<Focused>("");
-    // const [expiry, setExpiry] = useState("");
-    // const [cvc, setCvc] = useState("");
+    const plugin = React.useRef(
+        Autoplay({ delay: 2000, stopOnInteraction: true })
+    )
+    const CreditCards = useAppSelector((state) => state.creditCardReducer.cards);
+    const handleAddCard = () => {
 
+    }
     return (
-        <header>
-            <h1 className="text-4xl font-bold">Credit Cards</h1>
-            <div className="flex">
-                <div className="m-4">
-                    <CreditCard number="4242424242424242" name="mathew" cvc="123" focused="number" expiry="12/2025" />
-                </div>
-                <div className="m-4">
-                    <CreditCard number="5105105105105100" name="mathew" cvc="123" focused="number" expiry="12/2025" />
-                </div>
-                <div className="m-4">
-                    <CreditCard number="6011000990139424" name="mathew" cvc="123" focused="" expiry="12/2025" />
-                </div>
-                <div className="m-4">
-                    <CreditCard number="36227206271667" name="mathew" cvc="123" focused="" expiry="12/2025" />
-                </div>
-                <div className="m-4">
-                    <CreditCard number="2223003122003222" name="mathew" cvc="123" focused="" expiry="12/2025" />
-                </div>
+        <>
+            <h2 className="text-2xl font-bold">My Credit Cards:</h2>
+            <Carousel
+                plugins={[plugin.current]}
+                className="w-full max-w-xs ml-auto mr-auto"
+                onMouseEnter={plugin.current.stop}
+                onMouseLeave={plugin.current.reset}
+            >
+                <CarouselContent className="pt-5 pb-5">
+                    {CreditCards.map((card, index) => (
+                        <CarouselItem key={index} >
+                            <CreditCard
+                                number={card.number}
+                                name={card.name}
+                                cvc={card.cvc}
+                                focused={card.focused}
+                                expiry={card.expiry}
+                            />
+                        </CarouselItem>
+                    ))}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+            <h2 className="text-2xl font-bold">Credit Cards</h2>
+            <h3 className="text-base">here you can check your credit cards. Activate deactivate one</h3>
 
-            </div>
-        </header>
+            <Table className="table-fixed border-">
+                <TableCaption>Credit Cards in your account</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Card Number</TableHead>
+                        <TableHead>Card Name</TableHead>
+                        <TableHead>Card Expiry</TableHead>
+                        <TableHead>Card Status</TableHead>
+                        <TableHead>$$$ Amount</TableHead>
+                        <TableHead>Card Actions</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {CreditCards.map((card, index) => (
+                        <TableRow key={index}>
+                            <TableCell>{card.number}</TableCell>
+                            <TableCell>{card.name}</TableCell>
+                            <TableCell>{card.expiry}</TableCell>
+                            <TableCell>active</TableCell>
+                            <TableCell>$500.00</TableCell>
+                            <TableCell>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-5" onClick={() => handleAddCard()}>Edit Card</button>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleAddCard()}>Remove Card</button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+                <TableFooter>
+                    <TableRow>
+                        <TableCell colSpan={4}>Total</TableCell>
+                        <TableCell >{"$" + CreditCards.length * 500 + ".00"}</TableCell>
+                    </TableRow>
+                </TableFooter>
+            </Table>
+
+
+        </>
+
+
     );
 };
-

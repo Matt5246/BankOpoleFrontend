@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './features/counter/counterSlice'
-
+import creditCardReducer from './features/creditCards/creditCardsSlice'
 
 
 export const makeStore = configureStore({
-    reducer: { counterReducer },
+    reducer: { counterReducer, creditCardReducer },
 })
 
 
