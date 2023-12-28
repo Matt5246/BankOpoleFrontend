@@ -44,27 +44,18 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-
     return (
-        <>
+        <div className='bg-gray-100 dark:bg-gray-800 h-screen'>
             <NavMenu items1={items1} items2={items2} />
-            <Content style={{ padding: '0 48px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }} items={items1.map((x) => (
+            <Content style={{ padding: '0 48px' }} >
+                <Breadcrumb className='dark:text-white mt-3 mb-3' items={items1.map((x) => (
                     { title: x.label, key: x.key }
                 ))} />
-                <div
-                    style={{
-                        padding: 24,
-                        minHeight: 380,
-                        background: 'white',
-                        borderRadius: '12px',
-                        height: '1300px'
-                    }}
-                >
+                <div className='rounded-xl shadow-md p-8 dark:bg-gray-700 bg-white'>
                     <StoreProvider>{children}</StoreProvider>
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Matt Patt Design ©2023 Created by Matt5246</Footer>
-        </>
+            <Footer className='dark:bg-gray-800 dark:text-white absolute inset-x-0 bottom-0 h-16' style={{ textAlign: 'center' }}>Matt Patt Design ©2023 Created by Matt5246</Footer>
+        </div>
     )
 }
