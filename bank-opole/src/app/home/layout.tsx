@@ -48,10 +48,8 @@ export default function RootLayout({
         <div className='bg-gray-100 dark:bg-gray-800 h-screen'>
             <NavMenu items1={items1} items2={items2} />
             <Content style={{ padding: '0 48px' }} >
-                <Breadcrumb className='dark:text-white mt-3 mb-3' items={items1.map((x) => (
-                    { title: x.label, key: x.key }
-                ))} />
-                <div className='rounded-xl shadow-md p-8 dark:bg-gray-700 bg-white'>
+
+                <div className='rounded-xl shadow-md p-8 dark:bg-gray-700 bg-white mt-8'>
                     <StoreProvider>{children}</StoreProvider>
                 </div>
             </Content>
